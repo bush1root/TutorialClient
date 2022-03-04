@@ -24,6 +24,9 @@ public class Client {
     public static void startup() {
         Display.setTitle(name);
 
+        modules.add(new InvWalk());
+        modules.add(new FakePlayer());
+        modules.add(new Velocity());
         modules.add(new FastFall());
         modules.add(new ItemsESP());
         modules.add(new NameTags());
