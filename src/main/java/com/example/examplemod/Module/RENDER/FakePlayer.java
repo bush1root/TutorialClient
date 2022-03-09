@@ -1,5 +1,6 @@
 package com.example.examplemod.Module.RENDER;
 
+import com.example.examplemod.Module.CLIENT.Panic;
 import com.example.examplemod.Module.Module;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import org.lwjgl.input.Keyboard;
@@ -22,6 +23,8 @@ public class FakePlayer extends Module {
 
     @Override
     public void onDisable() {
-        mc.world.removeEntityFromWorld(fakePlayer.getEntityId());
+        if (!Panic.isPanic) {
+            mc.world.removeEntityFromWorld(fakePlayer.getEntityId());
+        }
     }
 }

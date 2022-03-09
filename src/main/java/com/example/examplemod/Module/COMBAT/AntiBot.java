@@ -1,6 +1,7 @@
 package com.example.examplemod.Module.COMBAT;
 
 import com.example.examplemod.Module.Module;
+import com.example.examplemod.Utils.ChatUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -13,10 +14,14 @@ public class AntiBot extends Module {
 
     @SubscribeEvent
     public void onUpdate(RenderWorldLastEvent e) {
-        for (EntityPlayer entityPlayer : mc.world.playerEntities) {
-            if (entityPlayer.isInvisible() && entityPlayer != mc.player) {
-                mc.world.removeEntity(entityPlayer);
+        try {
+            for (EntityPlayer entityPlayer : mc.world.playerEntities) {
+                if (entityPlayer.isInvisible() && entityPlayer != mc.player) {
+                    mc.world.removeEntity(entityPlayer);
+                }
             }
+        } catch (Exception ex) {
+            ChatUtils.sendMessage("AntiBot ERROR!");
         }
     }
 }

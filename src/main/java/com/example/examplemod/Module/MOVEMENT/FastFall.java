@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 
 public class FastFall extends Module {
     public FastFall() {
-        super("FastFall", Keyboard.KEY_F, Category.MOVEMENT);
+        super("FastFall", Keyboard.KEY_NONE, Category.MOVEMENT);
     }
 
     @SubscribeEvent

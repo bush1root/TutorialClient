@@ -2,6 +2,7 @@ package com.example.examplemod;
 
 import com.example.examplemod.Module.CLIENT.Panic;
 import com.example.examplemod.Module.COMBAT.*;
+import com.example.examplemod.Module.EXPLOIT.HackerDetector;
 import com.example.examplemod.Module.MOVEMENT.*;
 import com.example.examplemod.Module.Module;
 import com.example.examplemod.Module.PLAYER.BlockReach;
@@ -24,6 +25,8 @@ public class Client {
     public static void startup() {
         Display.setTitle(name);
 
+        modules.add(new HackerDetector());
+        modules.add(new BHOP());
         modules.add(new InvWalk());
         modules.add(new FakePlayer());
         modules.add(new Velocity());
