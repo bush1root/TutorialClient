@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
+import yea.bushroot.clickgui.ClickGuiManager;
+import yea.bushroot.clickgui.SettingsManager;
 
 import java.lang.reflect.Field;
 
@@ -22,6 +24,10 @@ public class ExampleMod
     public static final String MODID = "tutorial";
     public static final String NAME = "TutorialClient Mod";
     public static final String VERSION = "1.0";
+
+    public static ExampleMod instance;
+    public SettingsManager settingsManager;
+    public ClickGuiManager clickGui;
 
     private static Logger logger;
 
@@ -33,6 +39,10 @@ public class ExampleMod
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        clickGui = new ClickGuiManager();
+        instance = this;
+        settingsManager = new SettingsManager();
+
         Client.startup();
 
         MinecraftForge.EVENT_BUS.register(new key());

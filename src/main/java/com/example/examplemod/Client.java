@@ -9,10 +9,11 @@ import com.example.examplemod.Module.PLAYER.BlockReach;
 import com.example.examplemod.Module.EXPLOIT.FakeCreative;
 import com.example.examplemod.Module.RENDER.*;
 import font.FontUtils;
-import me.bushroot.clickgui.ClickGuiScreen;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.Display;
+import yea.bushroot.clickgui.ClickGuiManager;
 
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Client {
@@ -20,7 +21,7 @@ public class Client {
     public static String cName = "Tutorial§aClient §fB§a1.0";
     public static CopyOnWriteArrayList<Module> modules = new CopyOnWriteArrayList<Module>();
 
-    public static ClickGuiScreen clickGui;
+    public static ClickGuiManager clickGuiManager;
 
     public static void startup() {
         Display.setTitle(name);
@@ -63,9 +64,19 @@ public class Client {
         modules.add(new Speed());
         modules.add(new Panic());
 
-        clickGui = new ClickGuiScreen();
+        clickGuiManager = new ClickGuiManager();
 
         FontUtils.bootstrap();
+    }
+
+    public static ArrayList<Module> getModulesInCategory(Module.Category c) {
+        ArrayList<Module> mods = new ArrayList<Module>();
+        for (Module m : modules) {
+            if (m.getCategory().name().equalsIgnoreCase(c.name())) {
+                mods.add(m);
+            }
+        }
+        return mods;
     }
 
     public static void keyPress(int key) {

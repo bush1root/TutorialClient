@@ -1,5 +1,6 @@
 package com.example.examplemod.Module.COMBAT;
 
+import com.example.examplemod.ExampleMod;
 import com.example.examplemod.Module.Module;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
@@ -7,17 +8,34 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
+import yea.bushroot.clickgui.Setting;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class KillAura extends Module {
     public KillAura() {
         super("KillAura", Keyboard.KEY_R, Category.COMBAT);
+
+        ArrayList<String> options = new ArrayList<>();
+
+        options.add("TEST1");
+        options.add("TEST2");
+        options.add("TEST3");
+
+        ExampleMod.instance.settingsManager.rSetting(new Setting("Mode", this, options, "Mode"));
+        ExampleMod.instance.settingsManager.rSetting(new Setting("Range", this, 4.2, 1, 5, false));
+        ExampleMod.instance.settingsManager.rSetting(new Setting("Test", this, true));
     }
 
     @SubscribeEvent
     public void onUpdate(RenderWorldLastEvent e) {
-        double range = 4.6F;
+        String Mode = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Mode").getValString();
+        double range = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Range").getValDouble();
+        boolean test = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Test").getValBoolean();
+
+        System.out.println(Mode + " " + range + " " + test);
+
         EntityPlayer target  = mc.world.playerEntities.stream().filter(entityPlayer -> entityPlayer != mc.player).min(Comparator.comparing(entityPlayer ->
                 entityPlayer.getDistance(mc.player))).filter(entityPlayer -> entityPlayer.getDistance(mc.player) <= range).orElse(null);
 
