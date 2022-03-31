@@ -12,6 +12,7 @@ import yea.bushroot.clickgui.Setting;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class KillAura extends Module {
     public KillAura() {
@@ -19,29 +20,26 @@ public class KillAura extends Module {
 
         ArrayList<String> options = new ArrayList<>();
 
-        options.add("TEST1");
-        options.add("TEST2");
-        options.add("TEST3");
+        options.add("Rage");
+        options.add("Rotation");
 
         ExampleMod.instance.settingsManager.rSetting(new Setting("Mode", this, options, "Mode"));
         ExampleMod.instance.settingsManager.rSetting(new Setting("Range", this, 4.2, 1, 5, false));
-        ExampleMod.instance.settingsManager.rSetting(new Setting("Test", this, true));
     }
 
     @SubscribeEvent
     public void onUpdate(RenderWorldLastEvent e) {
         String Mode = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Mode").getValString();
         double range = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Range").getValDouble();
-        boolean test = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Test").getValBoolean();
-
-        System.out.println(Mode + " " + range + " " + test);
 
         EntityPlayer target  = mc.world.playerEntities.stream().filter(entityPlayer -> entityPlayer != mc.player).min(Comparator.comparing(entityPlayer ->
                 entityPlayer.getDistance(mc.player))).filter(entityPlayer -> entityPlayer.getDistance(mc.player) <= range).orElse(null);
 
         if (target != null) {
-            mc.player.rotationYaw = rotations(target)[0];
-            mc.player.rotationPitch = rotations(target)[1];
+            if (Objects.equals(Mode, "Rotation")) {
+                mc.player.rotationYaw = rotations(target)[0];
+                mc.player.rotationPitch = rotations(target)[1];
+            }
 
             if (mc.player.getCooledAttackStrength(0) == 1) {
                 mc.playerController.attackEntity(mc.player, target);

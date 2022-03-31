@@ -1,7 +1,6 @@
 package com.example.examplemod.Module.MOVEMENT;
 
 import com.example.examplemod.Module.Module;
-import me.bushroot.clickgui.ClickGuiScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -9,6 +8,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
+import yea.bushroot.clickgui.ClickGuiManager;
 
 public class InvWalk extends Module {
     public InvWalk() {
@@ -17,7 +17,7 @@ public class InvWalk extends Module {
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent e) {
-        if (!(mc.currentScreen instanceof GuiChat) && !(mc.currentScreen instanceof GuiContainer) && !(mc.currentScreen instanceof ClickGuiScreen)) {
+        if (!(mc.currentScreen instanceof GuiChat) && !(mc.currentScreen instanceof GuiContainer) && !(mc.currentScreen instanceof ClickGuiManager)) {
             mc.gameSettings.thirdPersonView = 0;
             return;
         }
