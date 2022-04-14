@@ -25,17 +25,23 @@ public class KillAura extends Module {
 
         ExampleMod.instance.settingsManager.rSetting(new Setting("Mode", this, options, "Mode"));
         ExampleMod.instance.settingsManager.rSetting(new Setting("Range", this, 4.2, 1, 5, false));
+        ExampleMod.instance.settingsManager.rSetting(new Setting("OnlyCritical", this, false));
     }
 
     @SubscribeEvent
     public void onUpdate(RenderWorldLastEvent e) {
         String Mode = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Mode").getValString();
         double range = ExampleMod.instance.settingsManager.getSettingByName(this.name, "Range").getValDouble();
+        boolean onlyCrits = ExampleMod.instance.settingsManager.getSettingByName(this.name, "OnlyCritical").getValBoolean();
 
         EntityPlayer target  = mc.world.playerEntities.stream().filter(entityPlayer -> entityPlayer != mc.player).min(Comparator.comparing(entityPlayer ->
                 entityPlayer.getDistance(mc.player))).filter(entityPlayer -> entityPlayer.getDistance(mc.player) <= range).orElse(null);
 
         if (target != null) {
+            if (mc.player.onGround && onlyCrits) {
+                mc.player.motionY = 0.15;
+            }
+
             if (Objects.equals(Mode, "Rotation")) {
                 mc.player.rotationYaw = rotations(target)[0];
                 mc.player.rotationPitch = rotations(target)[1];

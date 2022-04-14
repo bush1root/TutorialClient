@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.example.examplemod.ExampleMod;
 import com.example.examplemod.Module.Module;
+import com.example.examplemod.UI.ui;
 import yea.bushroot.clickgui.Setting;
 import yea.bushroot.clickgui.component.Component;
 import yea.bushroot.clickgui.component.Frame;
@@ -67,7 +68,7 @@ public class Button extends yea.bushroot.clickgui.component.Component {
 	@Override
 	public void renderComponent() {
 		Gui.drawRect(parent.getX(), this.parent.getY() + this.offset, parent.getX() + parent.getWidth(), this.parent.getY() + 12 + this.offset, this.isHovered ? 0xFF222222 : 0xFF111111);
-		Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(this.mod.getName(), (parent.getX() + 5), (parent.getY() + offset + 2), this.mod.isEnabled() ? new Color(0x36D003).hashCode() : 0xFFFFFF); //0x999999
+		Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(this.mod.getName(), (parent.getX() + 5), (parent.getY() + offset + 2), this.mod.isEnabled() ? ExampleMod.instance.settingsManager.getSettingByName("ClickGUI", "Rainbow").getValBoolean() ? ui.rainbow(300) : new Color(0x36D003).hashCode() : 0xFFFFFF); //0x999999
 		if(this.subcomponents.size() >= 2) {
 			Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(this.open ? "§7-" : "§7+", (parent.getX()+parent.getWidth()-10), (parent.getY() + offset + 2), -1);
 		}

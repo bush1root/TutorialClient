@@ -1,5 +1,6 @@
 package com.example.examplemod;
 
+import com.example.examplemod.Module.CLIENT.ClickGUI;
 import com.example.examplemod.Module.CLIENT.Panic;
 import com.example.examplemod.Module.COMBAT.*;
 import com.example.examplemod.Module.EXPLOIT.HackerDetector;
@@ -26,6 +27,7 @@ public class Client {
     public static void startup() {
         Display.setTitle(name);
 
+        modules.add(new ClickGUI());
         modules.add(new HackerDetector());
         modules.add(new BHOP());
         modules.add(new InvWalk());

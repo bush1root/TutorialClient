@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import com.example.examplemod.Client;
+import com.example.examplemod.ExampleMod;
 import com.example.examplemod.Module.Module;
+import com.example.examplemod.UI.ui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.*;
@@ -68,8 +70,8 @@ public class Frame {
 	}
 	
 	public void renderFrame(FontRenderer fontRenderer) {
-		Gui.drawRect(this.x, this.y-1, this.x + this.width, this.y, new Color(0x36D003).hashCode());
-		Gui.drawRect(this.x, this.y, this.x + this.width, this.y + 12, new Color(0x36D003).hashCode());
+		Gui.drawRect(this.x, this.y-1, this.x + this.width, this.y, ExampleMod.instance.settingsManager.getSettingByName("ClickGUI", "Rainbow").getValBoolean() ? ui.rainbow(300) : new Color(0x36D003).hashCode());
+		Gui.drawRect(this.x, this.y, this.x + this.width, this.y + 12, ExampleMod.instance.settingsManager.getSettingByName("ClickGUI", "Rainbow").getValBoolean() ? ui.rainbow(300) : new Color(0x36D003).hashCode());
 		Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(this.category.name(), this.x + 5, this.y + 2, -1);
 
 		if(this.open) {
