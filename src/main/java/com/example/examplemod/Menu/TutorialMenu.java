@@ -47,7 +47,7 @@ public class TutorialMenu extends GuiScreen {
             try {
                 Desktop desktop = Desktop.getDesktop();
                 if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-                    desktop.browse(new URI("https://youtube.com/bushroot"));
+                    desktop.browse(new URI("https://www.youtube.com/c/bushroot01"));
                 }
             } catch (URISyntaxException e) {
                 e.printStackTrace();
